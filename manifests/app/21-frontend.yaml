@@ -6,8 +6,10 @@ metadata:
 spec:
   replicas: 2
   strategy:
+    type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: taskapp-frontend
@@ -28,6 +30,12 @@ spec:
         image: ghcr.io/ts-a-devops/taskapp-frontend:26da2b0   # pinned tag, NOT :latest
         ports:
         - containerPort: 80
+        startupProbe:
+          httpGet:
+            path: /
+            port: 80
+          failureThreshold: 30
+          periodSeconds: 2
         readinessProbe:
           httpGet:
             path: /
