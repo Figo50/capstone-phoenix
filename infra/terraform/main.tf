@@ -11,7 +11,7 @@ resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.capstone_vpc.id
   cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = true
-  availability_zone       = "eu-north-1a"
+  availability_zone       = var.availability_zone
 
   tags = { Name = "capstone-public-subnet" }
 }
@@ -41,7 +41,7 @@ resource "aws_route_table_association" "public_assoc" {
 # Key Pair
 resource "aws_key_pair" "deployer" {
   key_name   = "capstone-key"
-  public_key = file("~/.ssh/capstone_key.pub")
+  public_key = file(var.ssh_public_key_path)
 }
 
 # Security Group
@@ -51,19 +51,19 @@ resource "aws_security_group" "k3s_sg" {
   vpc_id      = aws_vpc.capstone_vpc.id
 
   ingress {
-    description = "SSH"
+    description = "SSH - admin only, not the whole internet"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.admin_cidr]
   }
 
   ingress {
-    description = "K3s API Server"
+    description = "K3s API Server - admin only, not the whole internet"
     from_port   = 6443
     to_port     = 6443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.admin_cidr]
   }
 
   ingress {
@@ -114,7 +114,7 @@ data "aws_ami" "ubuntu" {
 # 1x Control Plane Node
 resource "aws_instance" "control_plane" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t3.small"
+  instance_type          = var.instance_type
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.k3s_sg.id]
   key_name               = aws_key_pair.deployer.key_name
@@ -127,9 +127,9 @@ resource "aws_instance" "control_plane" {
 
 # 2x Worker Nodes
 resource "aws_instance" "workers" {
-  count                  = 2
+  count                  = var.worker_count
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t3.small"
+  instance_type          = var.instance_type
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.k3s_sg.id]
   key_name               = aws_key_pair.deployer.key_name
