@@ -25,6 +25,7 @@ spec:
         labelSelector:
           matchLabels:
             app: taskapp-backend
+      terminationGracePeriodSeconds: 30
       containers:
       - name: backend
         image: ghcr.io/ts-a-devops/taskapp-backend:5d6b8fc   # pinned tag, NOT :latest
@@ -35,6 +36,10 @@ spec:
             name: taskapp-config
         - secretRef:
             name: taskapp-secret
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sleep", "5"]
         readinessProbe:
           httpGet:
             path: /api/health
