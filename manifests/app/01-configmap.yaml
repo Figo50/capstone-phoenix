@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: taskapp-config
+  namespace: taskapp
+data:
+  # Non-secret settings only. Anything here is visible in plaintext to
+  # anyone who can `kubectl get configmap` in this namespace - that's the
+  # whole point of splitting this from the Secret.
+  DATABASE_HOST: "postgres"          # matches the headless Service name we'll create next
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "taskapp"
+  FLASK_ENV: "production"
