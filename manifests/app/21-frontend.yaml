@@ -25,6 +25,7 @@ spec:
         labelSelector:
           matchLabels:
             app: taskapp-frontend
+      terminationGracePeriodSeconds: 30
       containers:
       - name: frontend
         image: ghcr.io/ts-a-devops/taskapp-frontend:26da2b0   # pinned tag, NOT :latest
@@ -36,6 +37,10 @@ spec:
             port: 80
           failureThreshold: 30
           periodSeconds: 2
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sleep", "5"]
         readinessProbe:
           httpGet:
             path: /
