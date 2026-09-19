@@ -1,0 +1,23 @@
+---
+- name: Install K3s Control Plane
+  hosts: control_plane
+  become: true
+  tasks:
+    - name: Install K3s server
+      shell: curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+
+    - name: Get K3s Node Token
+      command: cat /var/lib/rancher/k3s/server/node-token
+      register: k3s_token
+
+    - name: Save K3s token as a fact for workers
+      set_fact:
+        token: "{{ k3s_token.stdout }}"
+
+- name: Install K3s Worker Nodes
+  hosts: workers
+  become: true
+  tasks:
+    - name: Join K3s cluster
+      shell: |
+        curl -sfL https://get.k3s.io | K3S_URL=https://{{ hostvars[groups['control_plane'][0]]['ansible_host'] }}:6443 K3S_TOKEN={{ hostvars[groups['control_plane'][0]]['token'] }} sh -
