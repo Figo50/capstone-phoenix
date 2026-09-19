@@ -1,0 +1,20 @@
+]633;E;echo "=== Real app deployment verification ===";24cc8aa9-9efb-4b85-8c29-90a90dee48df]633;C=== Real app deployment verification ===
+Backend image: ghcr.io/ts-a-devops/taskapp-backend:5d6b8fc
+Frontend image: ghcr.io/ts-a-devops/taskapp-frontend:26da2b0
+
+=== Pods ===
+NAME                                READY   STATUS      RESTARTS   AGE     IP           NODE            NOMINATED NODE   READINESS GATES
+postgres-0                          1/1     Running     0          157m    10.42.2.34   ip-10-0-1-13    <none>           <none>
+taskapp-backend-6bb97f4494-6qwqw    1/1     Running     0          7m22s   10.42.1.13   ip-10-0-1-200   <none>           <none>
+taskapp-backend-6bb97f4494-h492d    1/1     Running     0          7m22s   10.42.2.35   ip-10-0-1-13    <none>           <none>
+taskapp-frontend-5575bb4c4f-czbnk   1/1     Running     0          7m4s    10.42.2.36   ip-10-0-1-13    <none>           <none>
+taskapp-frontend-5575bb4c4f-kt6ph   1/1     Running     0          7m4s    10.42.1.14   ip-10-0-1-200   <none>           <none>
+taskapp-migrate-hbtch               0/1     Completed   0          10m     10.42.1.12   ip-10-0-1-200   <none>           <none>
+
+=== Migration log ===
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> d5edfb30a373, Initial migration
+
+=== /api/health response ===
+{"database":"connected","status":"healthy","timestamp":"2026-09-19T17:35:21.607495"}
