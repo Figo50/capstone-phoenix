@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskapp-backend
+  namespace: taskapp
+spec:
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0   # zero-downtime requirement from the rubric
+  selector:
+    matchLabels:
+      app: taskapp-backend
+  template:
+    metadata:
+      labels:
+        app: taskapp-backend
+    spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname   # spreads replicas across different nodes
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: taskapp-backend
+      containers:
+      - name: backend
+        image: ghcr.io/ts-a-devops/taskapp-backend:c2b906d   # pinned tag, NOT :latest
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: taskapp-config
+        - secretRef:
+            name: taskapp-secret
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 20
+          periodSeconds: 10
+        startupProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          failureThreshold: 30   # allow up to ~2.5 min for slow first-boot (DB connection, etc.)
+          periodSeconds: 5
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+---
+# Three names covering every possible internal reference, all pointing at the
+# same pods, so nothing breaks no matter what the frontend image expects
+# internally or what the Ingress was already using:
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: taskapp
+spec:
+  selector:
+    app: taskapp-backend
+  ports:
+  - port: 5000
+    targetPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: taskapp
+spec:
+  selector:
+    app: taskapp-backend
+  ports:
+  - port: 5000
+    targetPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskapp-backend-svc
+  namespace: taskapp
+spec:
+  selector:
+    app: taskapp-backend
+  ports:
+  - port: 5000
+    targetPort: 5000

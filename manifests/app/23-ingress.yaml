@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: taskapp-ingress
+  namespace: taskapp
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"   # harmless if Traefik ignores it
+spec:
+  ingressClassName: traefik   # k3s's built-in controller - proven working in earlier verification
+  rules:
+  - host: taskapp.local   # TEMPORARY - Milestone 5 replaces this with a real nip.io domain for TLS
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: taskapp-backend-svc
+            port:
+              number: 5000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
