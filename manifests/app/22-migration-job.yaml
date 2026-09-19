@@ -20,7 +20,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: migrate
-        image: ghcr.io/ts-a-devops/taskapp-backend:c2b906d   # same pinned image as the app
+        image: ghcr.io/ts-a-devops/taskapp-backend:5d6b8fc   # same pinned image as the app
         command: ["alembic", "upgrade", "head"]
         envFrom:
         - configMapRef:

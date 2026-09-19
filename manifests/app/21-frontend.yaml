@@ -25,7 +25,7 @@ spec:
             app: taskapp-frontend
       containers:
       - name: frontend
-        image: ghcr.io/ts-a-devops/taskapp-frontend:c2b906d   # pinned tag, NOT :latest
+        image: ghcr.io/ts-a-devops/taskapp-frontend:26da2b0   # pinned tag, NOT :latest
         ports:
         - containerPort: 80
         readinessProbe:
