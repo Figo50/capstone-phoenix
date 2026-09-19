@@ -53,3 +53,18 @@ Already done, verified with real evidence:
 - [x] Ingress routing /, /api -> correct services, browser-confirmed
       (docs/EVIDENCE/ingress-verification.txt)
 - [x] 3-node k3s cluster up, kubectl reachable
+
+## HANDOFF NOTE (for continuing in a new chat)
+Repo: ~/capstone-phoenix (WSL, Windows user Jeff)
+Cluster: 3-node k3s on AWS eu-north-1, control plane 16.16.213.192
+kubectl: export KUBECONFIG=~/k3s.yaml (also in ~/.bashrc and ~/.profile)
+Admin IP allowed for SSH/6443: check with curl -s https://checkip.amazonaws.com,
+  compare to admin_cidr in infra/terraform/variables.tf - update+reapply if changed.
+Real app images (verified against GHCR directly, guide's tags were WRONG):
+  backend:  ghcr.io/ts-a-devops/taskapp-backend:5d6b8fc
+  frontend: ghcr.io/ts-a-devops/taskapp-frontend:26da2b0
+Working test: curl -H "Host: taskapp.local" http://16.16.213.192/api/health
+Known flaky: kubectl over the public IP occasionally times out (~17s stalls) -
+  not a real problem, just retry.
+Currently starting: Milestone 5, TLS via cert-manager + nip.io domain
+  (taskapp.16.16.213.192.nip.io), ClusterIssuer needs a REAL email, not example.com.
