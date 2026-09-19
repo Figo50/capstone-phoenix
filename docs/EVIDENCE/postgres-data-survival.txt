@@ -1,0 +1,12 @@
+]633;E;echo "=== Postgres data survival test ===";24cc8aa9-9efb-4b85-8c29-90a90dee48df]633;C=== Postgres data survival test ===
+Created row, deleted pod, pod rescheduled, data confirmed intact:
+
+ id |            note            
+----+----------------------------
+  1 | data survived a pod delete
+(1 row)
+
+
+=== PVC status ===
+NAME                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+postgres-storage-postgres-0   Bound    pvc-f82e56be-678b-4623-8958-da2a51e3ca55   2Gi        RWO            local-path     <unset>                 14m

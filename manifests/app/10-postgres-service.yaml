@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: taskapp
+spec:
+  clusterIP: None   # headless - gives each pod its own stable DNS name, required for StatefulSets
+  selector:
+    app: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432
