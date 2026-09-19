@@ -4,25 +4,43 @@ metadata:
   name: taskapp-ingress
   namespace: default
   annotations:
+    # These are ingress-nginx annotations. Under Traefik they are silently
+    # ignored — which is itself a common source of "my config does nothing".
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    # rewrite-target removed. The old value "/" rewrote /api/tasks -> / at the
+    # backend, dropping the path. Your stub backend answers any path with 200,
+    # so it looked fine and would have broken the moment Flask landed.
+    #
+    # If you DO need to strip the /api prefix, use a capture group instead:
+    #   nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # and change the /api path to:
+    #   - path: /api(/|$)(.*)
+    #     pathType: ImplementationSpecific
 spec:
-  ingressClassName: nginx
+  # k3s installs Traefik by default (your setup-k3s.yml does not pass
+  # --disable traefik). Pick ONE:
+  #   a) keep Traefik  -> set this to "traefik" and drop the nginx annotations
+  #   b) use nginx     -> reinstall k3s with `--disable traefik`, then
+  #                       helm install ingress-nginx, and keep "nginx"
+  # Verify with: kubectl get ingressclass
+  ingressClassName: traefik
   rules:
   - host: taskapp.local
     http:
       paths:
+      # More specific path first. Order is cosmetic for Prefix matching
+      # (longest match wins) but it keeps the intent readable.
       - path: /api
         pathType: Prefix
         backend:
           service:
-            name: taskapp-backend-svc
+            name: taskapp-backend-svc   # exists in k8s/app/taskapp-backend-svc.yaml
             port:
               number: 5000
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: taskapp-frontend-svc
+            name: frontend              # was: taskapp-frontend-svc (does not exist)
             port:
               number: 80

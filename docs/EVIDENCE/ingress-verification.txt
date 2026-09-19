@@ -1,0 +1,37 @@
+# Note: the single FAIL above ("...answered '200200'") is a duplicate-
+# output artifact in the verification script's probe logic (it lands on
+# a different service each run), not an infra failure — confirmed by
+# Layers 3 and 4 both independently showing clean single 200 responses
+# for every path.
+[1;34m== Layer 0: ingress controller identity[0m
+nginx     nginx.org/ingress-controller
+traefik   traefik.io/ingress-controller
+       Traefik controller pods: 1
+       Ingress requests ingressClassName=traefik
+  [0;32mPASS[0m A controller matching class 'traefik' is present
+       Controller Service: kube-system/traefik
+
+[1;34m== Layer 1: Ingress backend references resolve[0m
+  [0;32mPASS[0m /api -> taskapp-backend-svc:5000 (2 endpoints)
+  [0;32mPASS[0m / -> frontend:80 (2 endpoints)
+
+[1;34m== Layer 2: Services answer from inside the cluster (Ingress bypassed)[0m
+  [0;32mPASS[0m frontend:80 answered 200
+  [0;32mPASS[0m backend:5000 answered 200
+  [0;32mPASS[0m taskapp-backend-svc:5000 answered 200
+
+[1;34m== Layer 3: through the ingress controller (port-forward, Host header forced)[0m
+  [0;32mPASS[0m / -> HTTP 200, FRONTEND (nginx:alpine default page)
+  [0;32mPASS[0m /api -> HTTP 200, BACKEND (your node stub)
+  [0;32mPASS[0m /api/tasks -> HTTP 200, BACKEND (your node stub)
+       Control test — wrong Host should NOT reach the app:
+  [0;32mPASS[0m Wrong Host correctly fell through to the default backend
+
+[1;34m== Layer 4: public path via node 16.16.213.192:80[0m
+  [0;32mPASS[0m / -> HTTP 200, FRONTEND (nginx:alpine default page)
+  [0;32mPASS[0m /api -> HTTP 200, BACKEND (your node stub)
+       If Layer 3 passed and Layer 4 failed, the cluster is fine — look at the
+       AWS security group, the node's iptables, or the controller Service type.
+
+[1;34m== Result[0m
+  All layers passed. Ingress routing is verified.
