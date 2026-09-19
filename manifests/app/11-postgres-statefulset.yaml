@@ -43,6 +43,11 @@ spec:
         volumeMounts:
         - name: postgres-storage
           mountPath: /var/lib/postgresql/data
+        startupProbe:
+          exec:
+            command: ["pg_isready", "-U", "$(POSTGRES_USER)"]
+          periodSeconds: 5
+          failureThreshold: 30
         readinessProbe:
           exec:
             command: ["pg_isready", "-U", "$(POSTGRES_USER)"]
