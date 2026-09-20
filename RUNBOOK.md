@@ -9,3 +9,11 @@
 - readOnlyRootFilesystem was not enabled: the apps write to disk (nginx cache and pid, Postgres data).
   Enabling it needs emptyDir mounts and is listed as follow-up work.
 - The migration Job is not yet hardened: a Job's pod template is immutable after creation, so it needs a recreate or a sync hook.
+
+## Secrets handling
+
+The taskapp Secret is created by hand and never stored in Git. Only a template with placeholder
+values lives in the repo, at `manifests/templates/02-secret.example.yaml`, outside the path Argo CD
+syncs, so a sync can never overwrite the real Secret. Create the real Secret from the template
+before the first Argo CD sync. Trade-off: the manual step keeps credentials out of Git.
+Stretch option: Sealed Secrets removes the manual step.
