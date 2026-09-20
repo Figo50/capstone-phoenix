@@ -2,12 +2,6 @@
 # entrypoint - at 2+ replicas, migrations in the entrypoint race each other
 # on `alembic upgrade head` (this exact race is flagged in the rubric).
 #
-# UNVERIFIED COMMAND: "alembic upgrade head" is the standard command for this
-# stack, but we haven't confirmed it against the actual image yet. If this Job
-# fails, check its logs first:
-#   kubectl logs -l job-name=taskapp-migrate -n taskapp
-# and adjust the `command:` below if the image expects something different
-# (e.g. `flask db upgrade`).
 apiVersion: batch/v1
 kind: Job
 metadata:
