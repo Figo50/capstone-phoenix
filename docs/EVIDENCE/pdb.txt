@@ -1,0 +1,3 @@
+NAME               MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+taskapp-backend    1               N/A               1                     3m49s
+taskapp-frontend   1               N/A               1                     3m49s
