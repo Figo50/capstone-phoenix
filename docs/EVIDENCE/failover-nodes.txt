@@ -1,0 +1,4 @@
+NAME            STATUS   ROLES           AGE     VERSION
+ip-10-0-1-13    Ready    <none>          2d21h   v1.36.4+k3s1
+ip-10-0-1-200   Ready    <none>          2d21h   v1.36.4+k3s1
+ip-10-0-1-77    Ready    control-plane   2d21h   v1.36.4+k3s1

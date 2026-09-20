@@ -1,0 +1,6 @@
+node/ip-10-0-1-200 cordoned
+evicting pod taskapp/taskapp-frontend-dd8dbbbf7-65zcv
+evicting pod taskapp/taskapp-backend-69886d54cd-l58jz
+pod/taskapp-frontend-dd8dbbbf7-65zcv evicted
+pod/taskapp-backend-69886d54cd-l58jz evicted
+node/ip-10-0-1-200 drained
