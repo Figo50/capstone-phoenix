@@ -1,0 +1,21 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: taskapp-backend
+  namespace: taskapp
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: taskapp-backend
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: taskapp-frontend
+  namespace: taskapp
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: taskapp-frontend
