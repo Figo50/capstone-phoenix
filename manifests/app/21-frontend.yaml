@@ -4,7 +4,6 @@ metadata:
   name: taskapp-frontend
   namespace: taskapp
 spec:
-  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
