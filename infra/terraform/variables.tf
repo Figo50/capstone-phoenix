@@ -7,8 +7,8 @@ variable "aws_region" {
 variable "admin_cidr" {
   description = "Your own IP, /32, allowed to reach SSH (22) and the k3s API (6443). Update this if your ISP changes your IP - run `curl -s https://checkip.amazonaws.com` and append /32."
   type        = string
-  # 197.211.52.5/32 as of 2026-09-19 - replace via -var or terraform.tfvars if it changes
-  default     = "197.211.52.5/32"
+  # 197.211.52.2/32 as of 2026-09-20 - replace via -var or terraform.tfvars if it changes
+  default     = "197.211.52.2/32"
 }
 
 variable "instance_type" {
