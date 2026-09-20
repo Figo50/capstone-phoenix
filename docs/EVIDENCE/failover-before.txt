@@ -1,0 +1,7 @@
+NAME                                READY   STATUS      RESTARTS   AGE   IP           NODE            NOMINATED NODE   READINESS GATES
+postgres-0                          1/1     Running     0          71m   10.42.2.49   ip-10-0-1-13    <none>           <none>
+taskapp-backend-56c66c4cd9-fbsz2    1/1     Running     0          65m   10.42.2.50   ip-10-0-1-13    <none>           <none>
+taskapp-backend-56c66c4cd9-mx7z9    1/1     Running     0          22m   10.42.1.31   ip-10-0-1-200   <none>           <none>
+taskapp-frontend-7487bc9f4d-92pp7   1/1     Running     0          74m   10.42.2.48   ip-10-0-1-13    <none>           <none>
+taskapp-frontend-7487bc9f4d-j5wfz   1/1     Running     0          65m   10.42.1.25   ip-10-0-1-200   <none>           <none>
+taskapp-migrate-hbtch               0/1     Completed   0          16h   10.42.1.12   ip-10-0-1-200   <none>           <none>

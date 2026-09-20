@@ -1,0 +1,19 @@
+node/ip-10-0-1-200 cordoned
+evicting pod taskapp/taskapp-migrate-hbtch
+evicting pod argocd/argocd-applicationset-controller-84549767db-9ldr9
+evicting pod default/taskapp-frontend-6c96cc7cf-mm554
+evicting pod argocd/argocd-application-controller-0
+evicting pod taskapp/taskapp-backend-56c66c4cd9-mx7z9
+evicting pod default/taskapp-backend-767dcc77f5-xshqq
+evicting pod argocd/argocd-redis-c55679569-4lfkn
+evicting pod taskapp/taskapp-frontend-7487bc9f4d-j5wfz
+evicting pod cert-manager/cert-manager-cainjector-7f486bb48-whsrx
+pod/taskapp-migrate-hbtch evicted
+pod/argocd-redis-c55679569-4lfkn evicted
+pod/taskapp-frontend-6c96cc7cf-mm554 evicted
+pod/argocd-application-controller-0 evicted
+pod/cert-manager-cainjector-7f486bb48-whsrx evicted
+pod/argocd-applicationset-controller-84549767db-9ldr9 eviction failed
+pod/taskapp-backend-767dcc77f5-xshqq eviction failed
+pod/taskapp-frontend-7487bc9f4d-j5wfz eviction failed
+pod/taskapp-backend-56c66c4cd9-mx7z9 eviction failed
