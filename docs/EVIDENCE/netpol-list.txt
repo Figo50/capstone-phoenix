@@ -1,0 +1,5 @@
+NAME                                    POD-SELECTOR           AGE
+allow-backend-and-migrate-to-postgres   app=postgres           28m
+allow-traefik-and-frontend-to-backend   app=taskapp-backend    28m
+allow-traefik-to-frontend               app=taskapp-frontend   28m
+default-deny-ingress                    <none>                 28m

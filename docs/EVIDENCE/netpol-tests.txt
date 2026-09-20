@@ -1,0 +1,4 @@
+== allowed (labelled as the migrate job): expect 'accepting connections'
+postgres:5432 - accepting connections
+== blocked (no label): expect 'no response'
+postgres:5432 - no response
