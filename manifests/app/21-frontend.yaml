@@ -27,7 +27,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: frontend
-        image: ghcr.io/ts-a-devops/taskapp-frontend:26da2b0   # pinned tag, NOT :latest
+        image: ghcr.io/ts-a-devops/taskapp-frontend:26da2b0
         ports:
         - containerPort: 80
         startupProbe:

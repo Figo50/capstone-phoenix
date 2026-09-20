@@ -19,7 +19,7 @@ Produce (raw YAML, a Helm chart, or kustomize overlays — your call):
 - [ ] `topologySpreadConstraints` / pod anti-affinity so replicas land on different nodes
 - [ ] probes (startup/readiness/liveness) + `resources.requests`/`limits` on every container
 - [ ] `strategy.rollingUpdate.maxUnavailable: 0`
-- [ ] pinned image tags (no `:latest`)
+- [ ] pinned image tags (no floating tags)
 - [ ] ≥3 Advanced: HPA / NetworkPolicy / PDB+graceful-shutdown / observability / securityContext
 
 **Platform (install once, document how):**

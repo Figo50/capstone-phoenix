@@ -27,7 +27,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: backend
-        image: ghcr.io/ts-a-devops/taskapp-backend:5d6b8fc   # pinned tag, NOT :latest
+        image: ghcr.io/ts-a-devops/taskapp-backend:5d6b8fc
         ports:
         - containerPort: 5000
         envFrom:
