@@ -1,0 +1,6 @@
+78b5165 Revert "demo: scale frontend to 3 via GitOps"
+65a2d94 demo: scale frontend to 3 via GitOps
+f8a4349 evidence: Argo CD installed, taskapp Synced and Healthy
+c57ba8e gitops: Argo CD Application for taskapp
+c899580 terraform: update admin_cidr to current IP
+e2038f1 move secret template out of Argo-synced path
