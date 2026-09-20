@@ -1,0 +1,21 @@
+NAME               REFERENCE                     TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+taskapp-backend    Deployment/taskapp-backend    cpu: 1%/50%   2         4         2          9m8s
+taskapp-frontend   Deployment/taskapp-frontend   cpu: 2%/50%   2         4         2          9m8s
+taskapp-backend    Deployment/taskapp-backend    cpu: 30%/50%   2         4         2          16m
+taskapp-backend    Deployment/taskapp-backend    cpu: 60%/50%   2         4         2          17m
+taskapp-backend    Deployment/taskapp-backend    cpu: 59%/50%   2         4         3          17m
+taskapp-backend    Deployment/taskapp-backend    cpu: 57%/50%   2         4         3          17m
+taskapp-backend    Deployment/taskapp-backend    cpu: 41%/50%   2         4         3          17m
+taskapp-backend    Deployment/taskapp-backend    cpu: 42%/50%   2         4         3          18m
+taskapp-backend    Deployment/taskapp-backend    cpu: 49%/50%   2         4         3          18m
+taskapp-backend    Deployment/taskapp-backend    cpu: 45%/50%   2         4         3          18m
+taskapp-backend    Deployment/taskapp-backend    cpu: 42%/50%   2         4         3          19m
+taskapp-backend    Deployment/taskapp-backend    cpu: 44%/50%   2         4         3          19m
+taskapp-backend    Deployment/taskapp-backend    cpu: 43%/50%   2         4         3          19m
+taskapp-backend    Deployment/taskapp-backend    cpu: 41%/50%   2         4         3          20m
+taskapp-backend    Deployment/taskapp-backend    cpu: 43%/50%   2         4         3          20m
+taskapp-backend    Deployment/taskapp-backend    cpu: 12%/50%   2         4         3          20m
+taskapp-backend    Deployment/taskapp-backend    cpu: 3%/50%    2         4         3          21m
+taskapp-backend    Deployment/taskapp-backend    cpu: 1%/50%    2         4         3          21m
+taskapp-backend    Deployment/taskapp-backend    cpu: 1%/50%    2         4         3          21m
+taskapp-backend    Deployment/taskapp-backend    cpu: 1%/50%    2         4         2          21m
